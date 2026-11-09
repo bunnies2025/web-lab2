@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Lab 2 - GitHub Page</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        #result { margin-top: 20px; padding: 15px; border: 1px solid #ccc; display: inline-block; text-align: left; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>414570124 的 GitHub Page</h1>
+    <button id="loadDataBtn">點擊使用 Ajax 載入 JSON 資料</button>
+    <br>
+    <div id="result">資料將顯示在這裡...</div>
+
+    <script>
+        $(document).ready(function(){
+            $("#loadDataBtn").click(function(){
+                $.ajax({
+                    url: "https://jsonplaceholder.typicode.com/users",
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        var htmlContent = "<h3>載入成功！</h3>";
+                        for(var i = 0; i < 3; i++) {
+                            htmlContent += "<p>姓名: " + data[i].name + " | Email: " + data[i].email + "</p>";
+                        }
+                        $("#result").html(htmlContent);
+                    },
+                    error: function() {
+                        $("#result").html("<p style='color:red;'>資料載入失敗！</p>");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
